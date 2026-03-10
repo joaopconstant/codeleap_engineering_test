@@ -2,7 +2,8 @@ import { useInfinitePosts } from "@/hooks/usePosts"
 import { PostCard, type Post } from "@/components/PostCard"
 import { CreatePostForm } from "@/components/CreatePostForm"
 import { Button } from "@/components/ui/button"
-import { Loader2, AlertCircle } from "lucide-react"
+import { useTheme } from "@/components/theme-provider"
+import { Loader2, AlertCircle, Moon, Sun } from "lucide-react"
 
 interface FeedProps {
   onLogout: () => void
@@ -10,6 +11,7 @@ interface FeedProps {
 
 export function Feed({ onLogout }: FeedProps) {
   const currentUser = localStorage.getItem("username") || ""
+  const { theme, setTheme } = useTheme()
 
   const {
     data,
@@ -24,12 +26,21 @@ export function Feed({ onLogout }: FeedProps) {
     <div className="flex min-h-svh flex-col">
       <header className="mx-auto flex w-full max-w-200 items-center justify-between bg-primary p-4 text-white shadow-sm sm:p-6">
         <h1 className="text-xl font-bold sm:text-2xl">CodeLeap Network</h1>
-        <button
-          onClick={onLogout}
-          className="cursor-pointer text-sm font-medium hover:underline"
-        >
-          Logout
-        </button>
+        <div className="flex items-center gap-6">
+          <button
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="cursor-pointer text-sm font-medium hover:text-gray-200 flex items-center gap-2"
+            title="Toggle theme"
+          >
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+          <button
+            onClick={onLogout}
+            className="cursor-pointer text-sm font-medium hover:underline"
+          >
+            Logout
+          </button>
+        </div>
       </header>
       <main className="mx-auto min-h-[calc(100svh-[64px])] w-full max-w-200 flex-1 bg-card p-4 sm:min-h-[calc(100svh-80px)] sm:p-6">
         <CreatePostForm currentUser={currentUser} />
