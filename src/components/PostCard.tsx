@@ -5,14 +5,9 @@ import { useState } from "react"
 import { DeleteModal } from "./DeleteModal"
 import { EditModal } from "./EditModal"
 import { cn } from "@/lib/utils"
+import { type Post } from "@/hooks/usePosts"
 
-export interface Post {
-  id: number
-  username: string
-  created_datetime: string
-  title: string
-  content: string
-}
+export type { Post }
 
 interface PostCardProps {
   post: Post

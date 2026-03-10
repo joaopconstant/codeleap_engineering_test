@@ -64,6 +64,11 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
               disabled={createPostMutation.isPending}
             />
           </div>
+          {createPostMutation.isError && (
+            <p className="text-sm text-destructive">
+              Failed to create post. Please try again.
+            </p>
+          )}
           <div className="flex justify-end pt-2">
             <Button
               type="submit"

@@ -5,7 +5,7 @@ import {
 } from "@tanstack/react-query"
 import { api } from "@/api/axios"
 
-interface Post {
+export interface Post {
   id: number
   username: string
   created_datetime: string

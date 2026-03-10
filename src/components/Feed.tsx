@@ -2,8 +2,8 @@ import { useInfinitePosts } from "@/hooks/usePosts"
 import { PostCard, type Post } from "@/components/PostCard"
 import { CreatePostForm } from "@/components/CreatePostForm"
 import { Button } from "@/components/ui/button"
-import { useTheme } from "@/components/theme-provider"
-import { Loader2, AlertCircle, Moon, Sun } from "lucide-react"
+import { ThemeToggle } from "@/components/ThemeToggle"
+import { Loader2, AlertCircle } from "lucide-react"
 
 interface FeedProps {
   onLogout: () => void
@@ -11,8 +11,6 @@ interface FeedProps {
 
 export function Feed({ onLogout }: FeedProps) {
   const currentUser = localStorage.getItem("username") || ""
-  const { theme, setTheme } = useTheme()
-
   const {
     data,
     fetchNextPage,
@@ -27,16 +25,10 @@ export function Feed({ onLogout }: FeedProps) {
       <header className="mx-auto flex w-full max-w-200 items-center justify-between bg-primary p-4 text-white shadow-sm sm:p-6">
         <h1 className="text-xl font-bold sm:text-2xl">CodeLeap Network</h1>
         <div className="flex items-center gap-6">
-          <button
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            className="cursor-pointer text-sm font-medium hover:text-gray-200 flex items-center gap-2"
-            title="Toggle theme"
-          >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
+          <ThemeToggle />
           <button
             onClick={onLogout}
-            className="cursor-pointer text-sm font-medium hover:underline"
+            className="cursor-pointer text-sm font-medium hover:text-gray-200"
           >
             Logout
           </button>
@@ -71,7 +63,6 @@ export function Feed({ onLogout }: FeedProps) {
               </div>
             ))}
 
-            {/* Simple infinite scroll placeholder logic for now */}
             {hasNextPage && (
               <div className="mt-4 flex justify-center pt-4">
                 <Button

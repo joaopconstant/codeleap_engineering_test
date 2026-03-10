@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { useUpdatePost } from "@/hooks/usePosts"
 import { Loader2 } from "lucide-react"
 
@@ -75,16 +76,20 @@ export function EditModal({ isOpen, onClose, post }: EditModalProps) {
             <label htmlFor="edit-content" className="text-sm font-medium">
               Content
             </label>
-            <textarea
+            <Textarea
               id="edit-content"
               rows={4}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               disabled={updateMutation.isPending}
             />
           </div>
         </div>
+        {updateMutation.isError && (
+          <p className="text-sm text-destructive">
+            Failed to save changes. Please try again.
+          </p>
+        )}
         <div className="mt-4 flex justify-end gap-3">
           <Button
             type="button"
@@ -99,7 +104,7 @@ export function EditModal({ isOpen, onClose, post }: EditModalProps) {
             type="button"
             onClick={handleSave}
             disabled={isSaveDisabled}
-            className="bg-[#47B960] px-8 font-bold text-white hover:bg-[#3ca051] disabled:bg-[#cccccc] disabled:opacity-50"
+            className="bg-success px-8 font-bold text-white hover:bg-success/85 disabled:bg-muted disabled:text-muted-foreground disabled:opacity-50"
           >
             {updateMutation.isPending ? (
               <>
