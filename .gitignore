@@ -14,6 +14,7 @@ dist-ssr
 .agent
 .agents
 skills-lock.json
+ANTIGRAVITY.md
 
 # Editor directories and files
 .vscode/*
