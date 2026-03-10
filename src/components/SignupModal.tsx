@@ -19,7 +19,7 @@ export function SignupModal({ onLogin }: SignupModalProps) {
 
   return (
     <div className="flex min-h-svh items-center justify-center p-4">
-      <Card className="w-full max-w-125 rounded-xl border-none shadow-md py-6 px-4">
+      <Card className="w-full max-w-125 rounded-xl border-none px-4 py-6 shadow-md">
         <form onSubmit={handleSubmit}>
           <CardHeader className="pb-4">
             <CardTitle className="text-[22px] font-bold">

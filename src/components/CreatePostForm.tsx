@@ -31,14 +31,14 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
   }
 
   return (
-    <Card className="mb-6 w-full rounded-xl border-border shadow-md">
+    <Card className="mb-6 w-full animate-in rounded-xl border-border shadow-md duration-500 fade-in slide-in-from-top-4">
       <form onSubmit={handleSubmit}>
-        <CardHeader className="p-4 sm:p-6 pb-2 sm:pb-2">
+        <CardHeader className="p-4 pb-2 sm:p-6 sm:pb-2">
           <CardTitle className="text-[22px] font-bold">
             What's on your mind?
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4 p-4 sm:p-6 pt-2 sm:pt-2">
+        <CardContent className="flex flex-col gap-4 p-4 pt-2 sm:p-6 sm:pt-2">
           <div className="flex flex-col gap-2">
             <label htmlFor="title" className="text-sm font-medium">
               Title

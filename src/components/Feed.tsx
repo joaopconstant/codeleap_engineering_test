@@ -22,8 +22,8 @@ export function Feed({ onLogout }: FeedProps) {
 
   return (
     <div className="flex min-h-svh flex-col">
-      <header className="mx-auto flex w-full max-w-[800px] items-center justify-between bg-primary p-4 sm:p-6 text-white shadow-sm">
-        <h1 className="text-xl sm:text-2xl font-bold">CodeLeap Network</h1>
+      <header className="mx-auto flex w-full max-w-200 items-center justify-between bg-primary p-4 text-white shadow-sm sm:p-6">
+        <h1 className="text-xl font-bold sm:text-2xl">CodeLeap Network</h1>
         <button
           onClick={onLogout}
           className="text-sm font-medium hover:underline"
@@ -31,31 +31,37 @@ export function Feed({ onLogout }: FeedProps) {
           Logout
         </button>
       </header>
-      <main className="mx-auto min-h-[calc(100svh-[64px])] sm:min-h-[calc(100svh-80px)] w-full max-w-[800px] flex-1 bg-white p-4 sm:p-6">
+      <main className="mx-auto min-h-[calc(100svh-[64px])] w-full max-w-200 flex-1 bg-white p-4 sm:min-h-[calc(100svh-80px)] sm:p-6">
         <CreatePostForm currentUser={currentUser} />
 
         {status === "pending" ? (
-          <div className="flex justify-center mt-12 mb-12">
+          <div className="mt-12 mb-12 flex justify-center">
             <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
           </div>
         ) : status === "error" ? (
-          <div className="mt-8 rounded-md bg-destructive/10 p-4 border border-destructive/20 text-destructive flex items-start gap-3">
-            <AlertCircle className="h-5 w-5 mt-0.5 shrink-0" />
+          <div className="mt-8 flex items-start gap-3 rounded-md border border-destructive/20 bg-destructive/10 p-4 text-destructive">
+            <AlertCircle className="mt-0.5 h-5 w-5 shrink-0" />
             <div className="flex flex-col">
               <span className="font-semibold">Failed to load posts</span>
-              <span className="text-sm">{error instanceof Error ? error.message : "An unexpected error occurred."}</span>
+              <span className="text-sm">
+                {error instanceof Error
+                  ? error.message
+                  : "An unexpected error occurred."}
+              </span>
             </div>
           </div>
         ) : (
           <div className="flex flex-col gap-6 pb-8">
             {data.pages.map((page, i) => (
               <div key={i} className="flex flex-col gap-6">
-                {page.results.map((post: Post) => (
-                  <PostCard
+                {page.results.map((post: Post, index: number) => (
+                  <div
                     key={post.id}
-                    post={post}
-                    currentUser={currentUser}
-                  />
+                    style={{ animationDelay: `${index * 150}ms` }}
+                    className="animate-in fill-mode-both fade-in"
+                  >
+                    <PostCard post={post} currentUser={currentUser} />
+                  </div>
                 ))}
               </div>
             ))}
@@ -67,7 +73,7 @@ export function Feed({ onLogout }: FeedProps) {
                   variant="outline"
                   onClick={() => fetchNextPage()}
                   disabled={isFetchingNextPage}
-                  className="min-w-[140px]"
+                  className="min-w-35"
                 >
                   {isFetchingNextPage ? (
                     <>

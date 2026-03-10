@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { useState } from "react"
 import { DeleteModal } from "./DeleteModal"
 import { EditModal } from "./EditModal"
+import { cn } from "@/lib/utils"
 
 export interface Post {
   id: number
@@ -21,6 +22,7 @@ interface PostCardProps {
 export function PostCard({ post, currentUser }: PostCardProps) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [isDeleting, setIsDeleting] = useState(false)
 
   const isOwner = currentUser === post.username
 
@@ -29,11 +31,20 @@ export function PostCard({ post, currentUser }: PostCardProps) {
   const timeAgo = `${formatDistanceToNow(new Date(post.created_datetime))} ago`
 
   return (
-    <Card className="w-full overflow-hidden rounded-xl border-none shadow-md">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 bg-primary px-4 sm:px-6 py-4 sm:py-6 text-white">
-        <CardTitle className="text-xl font-bold truncate pr-3">{post.title}</CardTitle>
+    <Card
+      className={cn(
+        "w-full overflow-hidden rounded-xl border-none shadow-md transition-all duration-300",
+        isDeleting
+          ? "-mt-6 mb-0 h-0 scale-95 overflow-hidden border-0 opacity-0"
+          : "animate-in duration-500 fill-mode-both fade-in slide-in-from-bottom-4"
+      )}
+    >
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 bg-primary px-4 py-4 text-white sm:px-6 sm:py-6">
+        <CardTitle className="truncate pr-3 text-xl font-bold">
+          {post.title}
+        </CardTitle>
         {isOwner && (
-          <div className="flex items-center gap-4 shrink-0">
+          <div className="flex shrink-0 items-center gap-4">
             <button
               title="Delete"
               className="transition-opacity hover:opacity-80 disabled:opacity-50"
@@ -65,6 +76,7 @@ export function PostCard({ post, currentUser }: PostCardProps) {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         postId={post.id}
+        onDeleteStart={() => setIsDeleting(true)}
       />
 
       <EditModal

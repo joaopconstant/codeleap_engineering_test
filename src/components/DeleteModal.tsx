@@ -12,12 +12,19 @@ interface DeleteModalProps {
   isOpen: boolean
   onClose: () => void
   postId: number
+  onDeleteStart?: () => void
 }
 
-export function DeleteModal({ isOpen, onClose, postId }: DeleteModalProps) {
+export function DeleteModal({
+  isOpen,
+  onClose,
+  postId,
+  onDeleteStart,
+}: DeleteModalProps) {
   const deleteMutation = useDeletePost()
 
   const handleDelete = () => {
+    if (onDeleteStart) onDeleteStart()
     deleteMutation.mutate(postId, {
       onSuccess: () => {
         onClose()
