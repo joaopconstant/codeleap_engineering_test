@@ -24,7 +24,7 @@ Frontend engineering test for [CodeLeap](https://www.codeleap.co.uk/). A social 
 - **Permanent session** — username persisted in `localStorage`, keeping the user logged in across page reloads, with a logout option in the header
 - **Infinite scroll** — posts load progressively as the user scrolls, using React Query's `useInfiniteQuery` and the API's native pagination via the `next` field
 - **Animations and transitions** — smooth modal fade-ins and micro-interactions on buttons and hover states, implemented with Tailwind CSS
-- **Dark mode** — full dark theme support built into the design system, toggled with the `D` key
+- **Dark mode** — full dark theme support built into the design system, toggled via a button in the header (or the `D` key)
 
 ---
 
@@ -53,7 +53,7 @@ src/
   hooks/
     usePosts.ts       # React Query hooks: useInfinitePosts, useCreatePost, useUpdatePost, useDeletePost
   components/
-    ui/               # Reusable shadcn/ui components (buttons, inputs, dialogs)
+    ui/               # Reusable shadcn/ui components (buttons, inputs, dialogs, textarea)
     SignupModal.tsx   # Initial username screen
     Feed.tsx          # Main layout with header and post list
     CreatePostForm.tsx # Form for creating new posts
@@ -61,6 +61,7 @@ src/
     EditModal.tsx     # PATCH form pre-filled with current post values
     DeleteModal.tsx   # Confirmation dialog before deleting
     theme-provider.tsx # Dark mode context provider
+    ThemeToggle.tsx   # Header toggle button for testing the dark mode feature
   lib/
     queryClient.ts    # Shared React QueryClient instance
     utils.ts          # Utility functions for tailwind classes (cn)
