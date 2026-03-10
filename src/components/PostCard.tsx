@@ -51,9 +51,9 @@ export function PostCard({ post, currentUser }: PostCardProps) {
           </div>
         )}
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 p-6">
+      <CardContent className="flex flex-col gap-4 pb-6">
         <div className="flex items-center justify-between text-sm font-medium text-muted-foreground">
-          <span className="text-muted-foreground">@{post.username}</span>
+          <span>@{post.username}</span>
           <span>{timeAgo}</span>
         </div>
         <p className="leading-relaxed whitespace-pre-wrap text-foreground">

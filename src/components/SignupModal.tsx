@@ -19,7 +19,7 @@ export function SignupModal({ onLogin }: SignupModalProps) {
 
   return (
     <div className="flex min-h-svh items-center justify-center p-4">
-      <Card className="w-full max-w-125 rounded-xl border-none shadow-md">
+      <Card className="w-full max-w-125 rounded-xl border-none shadow-md py-6 px-4">
         <form onSubmit={handleSubmit}>
           <CardHeader className="pb-4">
             <CardTitle className="text-[22px] font-bold">
@@ -40,7 +40,7 @@ export function SignupModal({ onLogin }: SignupModalProps) {
                 className="h-10 border-input px-3 focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
               />
             </div>
-            <div className="flex justify-end pt-2">
+            <div className="flex justify-end">
               <Button
                 type="submit"
                 disabled={!username.trim()}
