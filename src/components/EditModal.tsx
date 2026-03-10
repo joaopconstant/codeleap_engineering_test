@@ -91,7 +91,7 @@ export function EditModal({ isOpen, onClose, post }: EditModalProps) {
             variant="outline"
             onClick={onClose}
             disabled={updateMutation.isPending}
-            className="px-6 font-bold"
+            className="cursor-pointer px-6 font-bold"
           >
             Cancel
           </Button>

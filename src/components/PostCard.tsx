@@ -47,14 +47,14 @@ export function PostCard({ post, currentUser }: PostCardProps) {
           <div className="flex shrink-0 items-center gap-4">
             <button
               title="Delete"
-              className="transition-opacity hover:opacity-80 disabled:opacity-50"
+              className="cursor-pointer transition-opacity hover:opacity-80 disabled:opacity-50"
               onClick={() => setIsDeleteModalOpen(true)}
             >
               <Trash2 className="h-5 w-5" />
             </button>
             <button
               title="Edit"
-              className="transition-opacity hover:opacity-80 disabled:opacity-50"
+              className="cursor-pointer transition-opacity hover:opacity-80 disabled:opacity-50"
               onClick={() => setIsEditModalOpen(true)}
             >
               <Edit className="h-5 w-5" />

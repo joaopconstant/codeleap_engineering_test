@@ -51,7 +51,7 @@ export function DeleteModal({
             variant="outline"
             onClick={onClose}
             disabled={deleteMutation.isPending}
-            className="px-6 font-bold"
+            className="cursor-pointer px-6 font-bold"
           >
             Cancel
           </Button>
@@ -60,7 +60,7 @@ export function DeleteModal({
             variant="destructive"
             onClick={handleDelete}
             disabled={deleteMutation.isPending}
-            className="px-6 font-bold"
+            className="cursor-pointer px-6 font-bold"
           >
             {deleteMutation.isPending ? (
               <>

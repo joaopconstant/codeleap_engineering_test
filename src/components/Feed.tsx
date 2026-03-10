@@ -26,7 +26,7 @@ export function Feed({ onLogout }: FeedProps) {
         <h1 className="text-xl font-bold sm:text-2xl">CodeLeap Network</h1>
         <button
           onClick={onLogout}
-          className="text-sm font-medium hover:underline"
+          className="cursor-pointer text-sm font-medium hover:underline"
         >
           Logout
         </button>
