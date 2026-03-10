@@ -6,6 +6,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { useDeletePost } from "@/hooks/usePosts"
+import { Loader2 } from "lucide-react"
 
 interface DeleteModalProps {
   isOpen: boolean
@@ -49,7 +50,14 @@ export function DeleteModal({ isOpen, onClose, postId }: DeleteModalProps) {
             disabled={deleteMutation.isPending}
             className="px-6 font-bold"
           >
-            {deleteMutation.isPending ? "Deleting..." : "Delete"}
+            {deleteMutation.isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Deleting...
+              </>
+            ) : (
+              "Delete"
+            )}
           </Button>
         </div>
       </DialogContent>

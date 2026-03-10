@@ -30,10 +30,10 @@ export function PostCard({ post, currentUser }: PostCardProps) {
 
   return (
     <Card className="w-full overflow-hidden rounded-xl border-none shadow-md">
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 bg-primary px-6 py-4 text-white">
-        <CardTitle className="text-xl font-bold">{post.title}</CardTitle>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 bg-primary px-4 sm:px-6 py-4 sm:py-6 text-white">
+        <CardTitle className="text-xl font-bold truncate pr-3">{post.title}</CardTitle>
         {isOwner && (
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 shrink-0">
             <button
               title="Delete"
               className="transition-opacity hover:opacity-80 disabled:opacity-50"
@@ -51,7 +51,7 @@ export function PostCard({ post, currentUser }: PostCardProps) {
           </div>
         )}
       </CardHeader>
-      <CardContent className="flex flex-col gap-4 pb-6">
+      <CardContent className="flex flex-col gap-4 p-4 sm:p-6 sm:pb-6">
         <div className="flex items-center justify-between text-sm font-medium text-muted-foreground">
           <span>@{post.username}</span>
           <span>{timeAgo}</span>

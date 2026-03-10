@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { useCreatePost } from "@/hooks/usePosts"
+import { Loader2 } from "lucide-react"
 
 interface CreatePostFormProps {
   currentUser: string
@@ -32,12 +33,12 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
   return (
     <Card className="mb-6 w-full rounded-xl border-border shadow-md">
       <form onSubmit={handleSubmit}>
-        <CardHeader className="p-6 pb-2">
+        <CardHeader className="p-4 sm:p-6 pb-2 sm:pb-2">
           <CardTitle className="text-[22px] font-bold">
             What's on your mind?
           </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-4 p-6 pt-2">
+        <CardContent className="flex flex-col gap-4 p-4 sm:p-6 pt-2 sm:pt-2">
           <div className="flex flex-col gap-2">
             <label htmlFor="title" className="text-sm font-medium">
               Title
@@ -73,7 +74,14 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
               }
               className="bg-primary px-8 font-bold text-white hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground disabled:opacity-50"
             >
-              {createPostMutation.isPending ? "Creating..." : "Create"}
+              {createPostMutation.isPending ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Creating...
+                </>
+              ) : (
+                "Create"
+              )}
             </Button>
           </div>
         </CardContent>

@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog"
 import { Input } from "@/components/ui/input"
 import { useUpdatePost } from "@/hooks/usePosts"
+import { Loader2 } from "lucide-react"
 
 interface EditModalProps {
   isOpen: boolean
@@ -100,7 +101,14 @@ export function EditModal({ isOpen, onClose, post }: EditModalProps) {
             disabled={isSaveDisabled}
             className="bg-[#47B960] px-8 font-bold text-white hover:bg-[#3ca051] disabled:bg-[#cccccc] disabled:opacity-50"
           >
-            {updateMutation.isPending ? "Saving..." : "Save"}
+            {updateMutation.isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Saving...
+              </>
+            ) : (
+              "Save"
+            )}
           </Button>
         </div>
       </DialogContent>
