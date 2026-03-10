@@ -1,4 +1,8 @@
-import { useInfiniteQuery, useMutation, useQueryClient } from "@tanstack/react-query"
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQueryClient,
+} from "@tanstack/react-query"
 import { api } from "@/api/axios"
 
 interface Post {
@@ -35,12 +39,50 @@ export function useCreatePost() {
   const queryClient = useQueryClient()
 
   return useMutation({
-    mutationFn: async (newPost: { username: string; title: string; content: string }) => {
+    mutationFn: async (newPost: {
+      username: string
+      title: string
+      content: string
+    }) => {
       const response = await api.post("", newPost)
       return response.data
     },
     onSuccess: () => {
       // Invalidate so that the feed refetches and shows the new post
+      queryClient.invalidateQueries({ queryKey: ["posts"] })
+    },
+  })
+}
+
+export function useDeletePost() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await api.delete(`/${id}/`)
+      return response.data
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["posts"] })
+    },
+  })
+}
+
+export function useUpdatePost() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async ({
+      id,
+      data,
+    }: {
+      id: number
+      data: { title: string; content: string }
+    }) => {
+      const response = await api.patch(`/${id}/`, data)
+      return response.data
+    },
+    onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["posts"] })
     },
   })

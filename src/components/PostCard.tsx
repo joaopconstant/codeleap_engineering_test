@@ -1,6 +1,9 @@
 import { formatDistanceToNow } from "date-fns"
 import { Trash2, Edit } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { useState } from "react"
+import { DeleteModal } from "./DeleteModal"
+import { EditModal } from "./EditModal"
 
 export interface Post {
   id: number
@@ -16,6 +19,9 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, currentUser }: PostCardProps) {
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+
   const isOwner = currentUser === post.username
 
   // date-fns formatDistanceToNow returns strings like 'about 1 month'
@@ -30,19 +36,15 @@ export function PostCard({ post, currentUser }: PostCardProps) {
           <div className="flex items-center gap-4">
             <button
               title="Delete"
-              className="transition-opacity hover:opacity-80"
-              onClick={() => {
-                /* TODO Stage 4: Delete logic */
-              }}
+              className="transition-opacity hover:opacity-80 disabled:opacity-50"
+              onClick={() => setIsDeleteModalOpen(true)}
             >
               <Trash2 className="h-5 w-5" />
             </button>
             <button
               title="Edit"
-              className="transition-opacity hover:opacity-80"
-              onClick={() => {
-                /* TODO Stage 4: Edit logic */
-              }}
+              className="transition-opacity hover:opacity-80 disabled:opacity-50"
+              onClick={() => setIsEditModalOpen(true)}
             >
               <Edit className="h-5 w-5" />
             </button>
@@ -58,6 +60,18 @@ export function PostCard({ post, currentUser }: PostCardProps) {
           {post.content}
         </p>
       </CardContent>
+
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        postId={post.id}
+      />
+
+      <EditModal
+        isOpen={isEditModalOpen}
+        onClose={() => setIsEditModalOpen(false)}
+        post={{ id: post.id, title: post.title, content: post.content }}
+      />
     </Card>
   )
 }

@@ -1,0 +1,109 @@
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import { Input } from "@/components/ui/input"
+import { useUpdatePost } from "@/hooks/usePosts"
+
+interface EditModalProps {
+  isOpen: boolean
+  onClose: () => void
+  post: {
+    id: number
+    title: string
+    content: string
+  }
+}
+
+export function EditModal({ isOpen, onClose, post }: EditModalProps) {
+  const [title, setTitle] = useState(post.title)
+  const [content, setContent] = useState(post.content)
+
+  const handleOpenChange = (open: boolean) => {
+    if (open) {
+      setTitle(post.title)
+      setContent(post.content)
+    }
+    if (!open) onClose()
+  }
+
+  const updateMutation = useUpdatePost()
+
+  const handleSave = () => {
+    if (!title.trim() || !content.trim()) return
+
+    updateMutation.mutate(
+      { id: post.id, data: { title: title.trim(), content: content.trim() } },
+      {
+        onSuccess: () => {
+          onClose()
+        },
+      }
+    )
+  }
+
+  const isSaveDisabled =
+    !title.trim() || !content.trim() || updateMutation.isPending
+
+  return (
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
+      <DialogContent className="sm:max-w-xl">
+        <DialogHeader>
+          <DialogTitle className="pb-2 text-[22px] font-bold">
+            Edit item
+          </DialogTitle>
+        </DialogHeader>
+        <div className="mt-2 flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
+            <label htmlFor="edit-title" className="text-sm font-medium">
+              Title
+            </label>
+            <Input
+              id="edit-title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="h-10 border-input px-3 hover:border-input focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:opacity-50"
+              disabled={updateMutation.isPending}
+            />
+          </div>
+          <div className="flex flex-col gap-2">
+            <label htmlFor="edit-content" className="text-sm font-medium">
+              Content
+            </label>
+            <textarea
+              id="edit-content"
+              rows={4}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              className="w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
+              disabled={updateMutation.isPending}
+            />
+          </div>
+        </div>
+        <div className="mt-4 flex justify-end gap-3">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={onClose}
+            disabled={updateMutation.isPending}
+            className="px-6 font-bold"
+          >
+            Cancel
+          </Button>
+          <Button
+            type="button"
+            onClick={handleSave}
+            disabled={isSaveDisabled}
+            className="bg-[#47B960] px-8 font-bold text-white hover:bg-[#3ca051] disabled:bg-[#cccccc] disabled:opacity-50"
+          >
+            {updateMutation.isPending ? "Saving..." : "Save"}
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  )
+}
