@@ -37,14 +37,14 @@ export function SignupModal({ onLogin }: SignupModalProps) {
                 placeholder="John doe"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                className="border-brand h-10 px-3 focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
+                className="h-10 border-input px-3 focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0"
               />
             </div>
             <div className="flex justify-end pt-2">
               <Button
                 type="submit"
                 disabled={!username.trim()}
-                className="bg-primary px-6 font-bold text-white hover:bg-primary/90 disabled:bg-[#cccccc] disabled:opacity-50"
+                className="bg-primary px-6 font-bold text-white hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground disabled:opacity-50"
               >
                 ENTER
               </Button>
