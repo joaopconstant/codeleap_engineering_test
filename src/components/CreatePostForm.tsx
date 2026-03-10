@@ -48,7 +48,7 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
               placeholder="Hello world"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="h-8border-input px-3 focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:opacity-50"
+              className="h-8 border-input px-3 focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:opacity-50"
               disabled={createPostMutation.isPending}
             />
           </div>

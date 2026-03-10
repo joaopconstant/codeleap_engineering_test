@@ -13,6 +13,7 @@ interface DeleteModalProps {
   onClose: () => void
   postId: number
   onDeleteStart?: () => void
+  onDeleteError?: () => void
 }
 
 export function DeleteModal({
@@ -20,6 +21,7 @@ export function DeleteModal({
   onClose,
   postId,
   onDeleteStart,
+  onDeleteError,
 }: DeleteModalProps) {
   const deleteMutation = useDeletePost()
 
@@ -28,6 +30,9 @@ export function DeleteModal({
     deleteMutation.mutate(postId, {
       onSuccess: () => {
         onClose()
+      },
+      onError: () => {
+        onDeleteError?.()
       },
     })
   }

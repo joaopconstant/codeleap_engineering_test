@@ -35,7 +35,7 @@ export function PostCard({ post, currentUser }: PostCardProps) {
       className={cn(
         "w-full overflow-hidden rounded-xl border-none shadow-md transition-all duration-300",
         isDeleting
-          ? "-mt-6 mb-0 h-0 scale-95 overflow-hidden border-0 opacity-0"
+          ? "-mt-6 mb-0 h-0 scale-95 border-0 opacity-0"
           : "animate-in duration-500 fill-mode-both fade-in slide-in-from-bottom-4"
       )}
     >
@@ -77,6 +77,7 @@ export function PostCard({ post, currentUser }: PostCardProps) {
         onClose={() => setIsDeleteModalOpen(false)}
         postId={post.id}
         onDeleteStart={() => setIsDeleting(true)}
+        onDeleteError={() => setIsDeleting(false)}
       />
 
       <EditModal

@@ -54,14 +54,8 @@ export function Feed({ onLogout }: FeedProps) {
           <div className="flex flex-col gap-6 pb-8">
             {data.pages.map((page, i) => (
               <div key={i} className="flex flex-col gap-6">
-                {page.results.map((post: Post, index: number) => (
-                  <div
-                    key={post.id}
-                    style={{ animationDelay: `${index * 150}ms` }}
-                    className="animate-in fill-mode-both fade-in"
-                  >
-                    <PostCard post={post} currentUser={currentUser} />
-                  </div>
+                {page.results.map((post: Post) => (
+                  <PostCard key={post.id} post={post} currentUser={currentUser} />
                 ))}
               </div>
             ))}
