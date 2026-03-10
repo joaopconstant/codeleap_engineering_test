@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { useCreatePost } from "@/hooks/usePosts"
 import { Loader2 } from "lucide-react"
 
@@ -48,7 +49,6 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
               placeholder="Hello world"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="h-8 border-input px-3 focus-visible:ring-1 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:opacity-50"
               disabled={createPostMutation.isPending}
             />
           </div>
@@ -56,13 +56,11 @@ export function CreatePostForm({ currentUser }: CreatePostFormProps) {
             <label htmlFor="content" className="text-sm font-medium">
               Content
             </label>
-            <textarea
+            <Textarea
               id="content"
               placeholder="Content here"
-              rows={3}
               value={content}
               onChange={(e) => setContent(e.target.value)}
-              className="w-full resize-none rounded-md border border-input bg-transparent px-3 py-2 text-sm shadow-sm placeholder:text-muted-foreground focus-visible:ring-1 focus-visible:ring-ring focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50"
               disabled={createPostMutation.isPending}
             />
           </div>

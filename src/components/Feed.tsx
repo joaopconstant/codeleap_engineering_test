@@ -31,7 +31,7 @@ export function Feed({ onLogout }: FeedProps) {
           Logout
         </button>
       </header>
-      <main className="mx-auto min-h-[calc(100svh-[64px])] w-full max-w-200 flex-1 bg-white p-4 sm:min-h-[calc(100svh-80px)] sm:p-6">
+      <main className="mx-auto min-h-[calc(100svh-[64px])] w-full max-w-200 flex-1 bg-card p-4 sm:min-h-[calc(100svh-80px)] sm:p-6">
         <CreatePostForm currentUser={currentUser} />
 
         {status === "pending" ? (
